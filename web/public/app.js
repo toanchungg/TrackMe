@@ -4,13 +4,8 @@ $("#footer").load("footer.html");
 const devices = JSON.parse(localStorage.getItem('devices')) || [];
 const users = JSON.parse(localStorage.getItem('users')) || [];
 
-devices.forEach(function(device) { 
-    $('#devices tbody').append(`
-<tr> 
-    <td>${device.user}</td> 
-    <td>${device.name}</td>
-</tr>`
-); });
+const response = $.get('http://localhost:3001/devices'); 
+console.log(response);
 
 users.forEach(function(user) { 
     $('#users tbody').append(`
