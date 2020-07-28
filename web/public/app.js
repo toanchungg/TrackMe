@@ -4,17 +4,18 @@ $("#footer").load("footer.html");
 const devices = JSON.parse(localStorage.getItem('devices')) || [];
 const users = JSON.parse(localStorage.getItem('users')) || [];
 
-devices.forEach(function(device) { $('#devices tbody').append(`
+devices.forEach(function(device) { 
+    $('#devices tbody').append(`
 <tr> 
-<td>${device.user}</td> 
-<td>${device.name}</td>
+    <td>${device.user}</td> 
+    <td>${device.name}</td>
 </tr>`
 ); });
 
 users.forEach(function(user) { 
     $('#users tbody').append(`
 <tr> 
-    <td>${user.user1}</td> 
+    <td>${user.user1}</td>
     <td>${user.password}</td>
 </tr>`
 ); });
@@ -33,11 +34,11 @@ $('#send-command').on('click', function() {
 });
 
 $('#register').on('click', function() {
-    const user1 = $('#loginName').val();
-    const password = $('#loginPassword').val();
-    const confirm = $('#confirmpassword').val();
+    const user1 = $('#LoginName').val();
+    const password = $('#LoginPassword').val();
+    const confirmpassword = $('#confirmpassword').val();
 
-    const exists = users.find ((user) => {
+    const exists = users.find((user) => {
         return user.user1 === user1;
     });
 
@@ -51,4 +52,27 @@ $('#register').on('click', function() {
     }
 });
 
+$('#login').on('click', function() { 
+    const user2  = $('#user2').val();
+    const password2 = $('#password2').val();
+    const existed = users.find(user => {
+        if( user.user1 === user2 && user.password === password2) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+        if(existed) {
+            localStorage.setItem( 'IsAuthenticated', true );
+            location.href = "/";
+        } else {
+            alert("Wrong password and username");
+        }
 });
+
+});
+
+const logout = () => { 
+    localStorage.removeItem('isAuthenticated'); 
+    location.href = '/login';
+}
